@@ -1,5 +1,7 @@
+
+
 export default async function Page() {
     return (
-        <div>incompleted tasks page</div>
+        <div>completed tasks page</div>
     )
 }
