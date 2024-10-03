@@ -22,6 +22,8 @@ const NavLinks = () => {
                 const LinkIcon = link.icon
 
                 return (
+                    <>
+                    <div></div>
                     <Link
                         key={link.name}
                         href={link.href}
@@ -33,6 +35,7 @@ const NavLinks = () => {
                         <LinkIcon className="w-6"/>
                         <p>{link.name}</p>
                     </Link>
+                    </>
                 )
             })}
         </>
