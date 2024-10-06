@@ -13,6 +13,9 @@ export default function SideNav() {
 
             <div className="flex grow flex-col justify-between">
                 <div className="space-y-2">
+                    <div>
+                        <img src="" alt="profile pic" />
+                    </div>
                     <NavLinks/>
                 </div>
 
