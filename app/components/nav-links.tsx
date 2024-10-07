@@ -23,18 +23,17 @@ const NavLinks = () => {
 
                 return (
                     <>
-                    <div></div>
-                    <Link
-                        key={link.name}
-                        href={link.href}
-                        className={clsx(
-                            'flex h-[48px] grow items-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600',
-                            {'bg-sky-100 text-blue-600': pathname === link.href,},
-                        )}
-                    >
-                        <LinkIcon className="w-6"/>
-                        <p>{link.name}</p>
-                    </Link>
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className={clsx(
+                                'flex h-[48px] grow items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-slate-700 text-white',
+                                {'bg-slate-700 text-blue-300': pathname === link.href,},
+                            )}
+                        >
+                            <LinkIcon className="w-6"/>
+                            <p>{link.name}</p>
+                        </Link>
                     </>
                 )
             })}
