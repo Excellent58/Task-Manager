@@ -32,12 +32,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-col md:flex-row">
+        <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
           <div className="">
             <SideNav/>
           </div>
           
-          <div className="flex-grow p-6 md:p-12 mt-10 md:mt-5">
+          <div className="flex-grow p-6 md:p-5 pt-16 md:pt-5 md:overflow-y-auto bg-gray-700 text-white">
             {children}
           </div>
         </div>

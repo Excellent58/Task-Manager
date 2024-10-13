@@ -1,4 +1,5 @@
 'use client'
+
 import { useState, useEffect, useRef } from "react";
 import { PowerIcon, } from "lucide-react";
 import Link from "next/link";
@@ -39,7 +40,7 @@ export default function SideNav() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    })
+    }, [IsOpen])
 
     useEffect(() => {
         const handleResize =()=> {
@@ -63,16 +64,16 @@ export default function SideNav() {
                         onClick={()=>setOpen(!IsOpen)}
                     />
 
-                    <h2 className="text-white text-lg">Task manager</h2>
+                    <h2 className="text-white text-lg flex">Task manager</h2>
                 </div>
             </nav>
             
             <div 
-                className={`fixed top-0 left-0 z-40 h-screen w-64 bg-slate-800 transition-transform -translate-x-full md:translate-x-0 ${IsOpen ? "translate-x-0": "-translate-x-full"} `}
+                className={`fixed md:relative top-0 left-0 z-40 w-64 bg-slate-800 transition-transform -translate-x-full md:translate-x-0 ${IsOpen ? "translate-x-0": "-translate-x-full"} `}
                 ref={sidebarRef}
             >
-                <div className="flex grow flex-col justify-between">
-                    <div className="space-y-2">
+                <div className="flex grow flex-col h-screen justify-between">
+                    <div className="space-y-2 m-3">
                         <div className="flex items-center space-x-4 mb-10">
                             <Image
                                 src={Profile}
@@ -94,7 +95,7 @@ export default function SideNav() {
                                             'flex h-[48px] grow items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-slate-700 text-white',
                                             {'bg-slate-700 text-blue-300': pathname === link.href,},
                                         )}
-                                        onClick={(prev)=> setOpen((prev) => !prev)}
+                                        onClick={()=> setOpen(false)}
                                     >
                                         <LinkIcon className="w-6"/>
                                         <p>{link.name}</p>
@@ -104,7 +105,7 @@ export default function SideNav() {
                         })}
                     </div>
 
-                    <form>
+                    <form className="m-3">
                         <button className="flex h-[48px] w-full grow items-center gap-2 rounded-md p-3 text-white text-sm font-medium hover:bg-slate-700">
                             <PowerIcon className="w-6"/>
                             <div>Sign Out</div>
