@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PlusIcon, DeleteIcon, EditIcon } from "lucide-react";
+import { PlusIcon, Trash2Icon, PencilIcon } from "lucide-react";
 import { } from "lucide-react";
 
 export function CreateTask() {
@@ -18,9 +18,9 @@ export function UpdateTask({ id }: { id: string }) {
   return (
     <Link
       href={`/dashboard/invoices/${id}/edit`}
-      className="hover:text-blue-600"
+      className="text-slate-500"
     >
-      <EditIcon className="w-5" />
+      <PencilIcon className="w-5" />
     </Link>
   );
 }
@@ -29,9 +29,9 @@ export function DeleteTask({ id }: { id: string }) {
 
   return (
     <form>
-      <button type="submit" className=" hover:text-red-500">
+      <button type="submit" className="text-slate-500 flex items-center">
         <span className="sr-only">Delete</span>
-        <DeleteIcon className="w-5" />
+        <Trash2Icon className="w-5" />
       </button>
     </form>
   );
