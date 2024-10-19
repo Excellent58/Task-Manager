@@ -8,10 +8,11 @@
 - Task filtering by completion status
 - Persistent data storage on the database
 - Search for the tasks
+- User Authentication
 
 ### TechStack:
 - Typescript
 - Next.js
 - React.js
 - Tailwind CSS
-- Postgresql
+- MongoDB
