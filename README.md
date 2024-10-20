@@ -16,3 +16,5 @@
 - React.js
 - Tailwind CSS
 - MongoDB
+
+### How to get started
