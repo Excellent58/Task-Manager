@@ -9,6 +9,7 @@
 - Persistent data storage on the database
 - Search for the tasks
 - User Authentication
+- Upload Profile Image
 
 ### TechStack:
 - Typescript
