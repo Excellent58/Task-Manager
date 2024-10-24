@@ -2,11 +2,11 @@ import Image from "next/image";
 import SearchTask from "./components/search";
 import { CreateTask } from "./components/buttons";
 import TaskCard from "./components/task-card";
-import { fetchTasks } from "./lib/data";
+import { getTasks } from "./lib/data";
 import { formatDate } from "@/utils/date";
 
 export default async function Home() {
-  const tasks = await fetchTasks();
+  const tasks = await getTasks();
   console.log(tasks)
 
   return (
@@ -21,7 +21,7 @@ export default async function Home() {
           {tasks.map((task) => (
             <TaskCard
               key={task._id.toString()}
-              id={task._id}
+              id={task._id.toString()}
               title={task.title}
               description={task.description}
               date={formatDate(task.createdAt)}
