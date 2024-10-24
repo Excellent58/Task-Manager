@@ -1,3 +1,5 @@
+'user server'
+
 import { ObjectId } from "mongodb";
 
 
@@ -17,3 +19,11 @@ interface Task {
     createdAt: Date
     userId: ObjectId
 }
+
+export async function createTask() {}
+
+export async function updateTask() {}
+
+export async function deleteTask() {}
+
+export async function authenticate() {}

@@ -20,7 +20,7 @@ function TaskCard({id, title, description, date, isCompleted}:Task) {
             <div className="">
                 {isCompleted ? (
                     <div className="flex space-x-2 justify-between mt-3">
-                        <h2 className="bg-green-500 p-[0.2rem] rounded-lg">done</h2>
+                        <h2 className="p-[0.2rem] rounded-lg text-green-500">Done</h2>
                         <div className="flex items-center space-x-4">
                             <UpdateTask id={id}/>
                             <DeleteTask id={id}/>
@@ -28,7 +28,7 @@ function TaskCard({id, title, description, date, isCompleted}:Task) {
                     </div>
                 ): (
                     <div className="flex space-x-2 justify-between mt-3">
-                        <h2 className="bg-red-400 p-[0.2rem] rounded-lg">pending</h2>
+                        <h2 className="p-[0.2rem] rounded-lg text-red-400">pending</h2>
                         <div className="flex items-center space-x-4 ">
                             <UpdateTask id={id}/>
                             <DeleteTask id={id}/>
