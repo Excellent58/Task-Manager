@@ -91,6 +91,10 @@ async function seedDB() {
     await tasksCollection.insertMany(tasks);
 }
 
+const testDB = async () => {
+
+}
+
 export async function GET() {
     try {
         await seedDB()
