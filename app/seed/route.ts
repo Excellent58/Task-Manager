@@ -92,7 +92,7 @@ async function seedDB() {
 }
 
 const testDB = async () => {
-
+const collection =  "collection"
 }
 
 export async function GET() {
