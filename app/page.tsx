@@ -4,6 +4,7 @@ import { CreateTask } from "./components/buttons";
 import TaskCard from "./components/task-card";
 import { getTasks } from "./lib/data";
 import { formatDate } from "@/utils/date";
+import AddTaskModal from "./components/AddTasksModal";
 
 export default async function Home() {
   const tasks = await getTasks();
@@ -30,6 +31,8 @@ export default async function Home() {
           ))}
         </div>
       </div>
+
+      <AddTaskModal/>
     </div>
   );
 }
