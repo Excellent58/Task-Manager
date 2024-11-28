@@ -5,3 +5,5 @@ function DeleteTaskModal() {
         <div></div>
     )
 }
+
+export default DeleteTaskModal;
