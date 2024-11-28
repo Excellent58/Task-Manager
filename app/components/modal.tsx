@@ -1,57 +1,56 @@
+import { X } from "lucide-react";
 import { useEffect } from "react"; 
 
 interface ModalProps {
     open: boolean;
-    cancelFn?: () => void;
-    primaryFn?: () => void;
-    secondaryFn?:() => void;
+    closeFn:() => void;
     content?: React.ReactNode;
     title?: string;
-    className?: string;
+    actions?: React.ReactNode; //to pass buttons or other actions
 }
 
 
 const Modal: React.FC<ModalProps> = (props) => {
-    const {open, cancelFn, primaryFn, secondaryFn, title, content} = props;
+    const {open, closeFn, title, content} = props;
 
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && open) {
-                if (cancelFn) {
-                    cancelFn();
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const handleKeyDown = (e: KeyboardEvent) => {
+    //         if (e.key === 'Escape' && open) {
+    //             if (cancelFn) {
+    //                 cancelFn();
+    //             }
+    //         }
+    //     };
 
-        document.addEventListener('keydown', handleKeyDown);
-        return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [open, cancelFn]);
+    //     document.addEventListener('keydown', handleKeyDown);
+    //     return () => document.removeEventListener('keydown', handleKeyDown);
+    // }, [open, cancelFn]);
 
     if (!open) return null;
 
     return (
-        <div className="fixed overflow-y-auto overflow-x-hidden inset-0 z-50  flex items-center justify-center bg-slate-800 bg-opacity-50">
-           <div className="w-full max-w-[400px] rounded-lg h-[300px] bg-gray-100 text-black p-6">
+        <div className="fixed overflow-y-auto overflow-x-hidden inset-0 z-50  flex items-center justify-center bg-slate-800 bg-opacity-50 max-h-full">
+           <div className="mx-3 md:mx-0 w-full max-w-md max-h-full rounded-lg bg-gray-100 text-black">
                 {title && (
-                    <div>
-                        <h1 className="bold text-lg">{title}</h1>
-
+                    <div className="flex justify-between items-center p-4 md:p-5">
+                        <h1 className="text-lg font-semibold">{title}</h1>
+                        <button 
+                            type="button" 
+                            className="bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                            onClick={closeFn}
+                        >
+                            <X/>
+                            <span className="sr-only">Close modal</span>
+                        </button>
                     </div>
                 )}
 
-                <div className="mt-6">
+                <div className="">
                     {content}
                 </div>
 
                 <div className="footer">
-                    {secondaryFn && (
-                        <button onClick={secondaryFn} id="cancelBtn">
-                            Cancel
-                        </button>
-                    )}
-                    {primaryFn && (
-                        <button onClick={primaryFn}>Continue</button>
-                    )}
+                    
                 </div>
            </div>
         </div>
