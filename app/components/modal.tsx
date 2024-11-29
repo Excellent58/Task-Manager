@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 interface ModalProps {
     open: boolean;
-    closeFn:() => void;
+    closeFn?:() => void;
     content?: React.ReactNode;
     title?: string;
     actions?: React.ReactNode; //to pass buttons or other actions
