@@ -1,4 +1,5 @@
-import { UpdateTask, DeleteTask } from "./buttons";
+import DeleteTaskModal from "./DeleteTaskModal";
+import EditTaskModal from "./EditTaskModal";
 
 type Task = {
     id: string;
@@ -22,16 +23,16 @@ function TaskCard({id, title, description, date, isCompleted}:Task) {
                     <div className="flex space-x-2 justify-between mt-3">
                         <h2 className="p-[0.2rem] rounded-lg text-green-500">Done</h2>
                         <div className="flex items-center space-x-4">
-                            <UpdateTask id={id}/>
-                            <DeleteTask id={id}/>
+                            <EditTaskModal id={id}/>
+                            <DeleteTaskModal id={id}/>
                         </div>
                     </div>
                 ): (
                     <div className="flex space-x-2 justify-between mt-3">
                         <h2 className="p-[0.2rem] rounded-lg text-red-400">pending</h2>
                         <div className="flex items-center space-x-4 ">
-                            <UpdateTask id={id}/>
-                            <DeleteTask id={id}/>
+                            <EditTaskModal id={id}/>
+                            <DeleteTaskModal id={id}/>
                         </div>
                     </div>
                 )}

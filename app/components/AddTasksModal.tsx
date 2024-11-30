@@ -19,7 +19,7 @@ export default function AddTaskModal() {
                 title={"Add Task"}
                 closeFn={()=> setModalOpen(false)}
                 content={
-                    <form className="p-4 md:p-5">
+                    <form className="">
                         <div>
                             <label 
                                 htmlFor="title"

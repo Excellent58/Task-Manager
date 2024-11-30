@@ -3,11 +3,21 @@ import { PlusIcon, Trash2Icon, PencilIcon } from "lucide-react";
 import { } from "lucide-react";
 
 
-type CreateTaskProps = {
+type CreateButtonProps = {
   onClick: () => void;
 };
 
-export function CreateTask({onClick}: CreateTaskProps) {
+type DeleteButtonProps = {
+  id: string;
+  onClick: () => void;
+}
+
+type UpdateButtonProps = {
+  id: string;
+  onClick: () => void;
+}
+
+export function CreateTask({onClick}: CreateButtonProps) {
     return (
         <Link
             href="/"
@@ -20,25 +30,28 @@ export function CreateTask({onClick}: CreateTaskProps) {
     )
 }
 
-export function UpdateTask({ id }: { id: string }) {
+export function UpdateTask({ id, onClick }: UpdateButtonProps) {
   return (
-    <Link
-      href={`/dashboard/invoices/${id}/edit`}
+    <button
+      onClick={onClick}
       className="text-slate-500"
     >
+      <span className="sr-only">Edit</span>
       <PencilIcon className="w-5" />
-    </Link>
+    </button>
   );
 }
 
-export function DeleteTask({ id }: { id: string }) {
+export function DeleteTask({ id, onClick }: DeleteButtonProps) {
 
   return (
-    <form>
-      <button type="submit" className="text-slate-500 flex items-center">
-        <span className="sr-only">Delete</span>
-        <Trash2Icon className="w-5" />
-      </button>
-    </form>
+    <button 
+      type="button" 
+      className="text-slate-500 flex items-center"
+      onClick={onClick}
+    >
+      <span className="sr-only">Delete</span>
+      <Trash2Icon className="w-5" />
+    </button>
   );
 }
