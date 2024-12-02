@@ -1,6 +1,6 @@
-import TaskCard from "../components/task-card";
+import TaskCard from "../../components/task-card";
 import { formatDate } from "@/utils/date";
-import { getImportantTasks } from "../lib/data";
+import { getImportantTasks } from "../../lib/data";
 
 export default async function Page() {
   const tasks = await getImportantTasks()

@@ -1,9 +1,9 @@
-import TaskCard from "../components/task-card";
+import TaskCard from "../../components/task-card";
 import { formatDate } from "@/utils/date";
-import { getDoneTasks } from "../lib/data";
+import { getIncompleteTasks } from "../../lib/data";
 
 export default async function Page() {
-  const tasks = await getDoneTasks()
+  const tasks = await getIncompleteTasks()
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">
