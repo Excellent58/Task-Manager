@@ -19,23 +19,16 @@ function TaskCard({id, title, description, date, isCompleted}:Task) {
             </div>
 
             <div className="">
-                {isCompleted ? (
-                    <div className="flex space-x-2 justify-between mt-3">
-                        <h2 className="p-[0.2rem] rounded-lg text-green-500">Done</h2>
-                        <div className="flex items-center space-x-4">
-                            <EditTaskModal id={id}/>
-                            <DeleteTaskModal id={id}/>
-                        </div>
+                <div className="flex space-x-2 justify-between mt-3">
+                    {isCompleted ? <h2 className="p-[0.2rem] rounded-lg text-green-500">Done</h2> 
+                    : <h2 className="p-[0.2rem] rounded-lg text-red-400">pending</h2>
+                    }
+                    
+                    <div className="flex items-center space-x-4">
+                        <EditTaskModal id={id}/>
+                        <DeleteTaskModal id={id}/>
                     </div>
-                ): (
-                    <div className="flex space-x-2 justify-between mt-3">
-                        <h2 className="p-[0.2rem] rounded-lg text-red-400">pending</h2>
-                        <div className="flex items-center space-x-4 ">
-                            <EditTaskModal id={id}/>
-                            <DeleteTaskModal id={id}/>
-                        </div>
-                    </div>
-                )}
+                </div>
             </div>
         </div>
     )
