@@ -15,7 +15,7 @@ function EditTaskModal({id}:EditModalProps ) {
     useDisableBodyScroll(modalOpen)
 
     return (
-        <div>
+        <div className="flex">
             <UpdateTask
                 id={id}
                 onClick={()=> setModalOpen(true)}

@@ -1,6 +1,7 @@
 'use client'
 
 import Button from "../Button"
+import Link from "next/link"
 
 export default function SignupForm() {
 
@@ -48,6 +49,8 @@ export default function SignupForm() {
                         <div className="mt-10">
                             <Button label="Sign up"/>
                         </div>
+
+                        <p className="text-white mt-2">Already Registered? <Link href="/login" className="text-blue-400">login</Link></p>
                     </form>
                 </div>
             </div>
