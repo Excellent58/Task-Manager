@@ -2,15 +2,18 @@
 
 import Button from "../Button"
 import Link from "next/link"
+import { useActionState } from "react"
+import { authenticate } from "@/app/lib/actions"
 
 export default function LoginForm() {
+    const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined)
 
     return (
         <div className="bg-slate-800 h-full w-full max-h-[24rem] max-w-[24rem] mt-8 rounded-lg">
                 <div className="px-4 py-4">
                     <h3 className="text-white text-xl font-semibold">Login</h3>
 
-                    <form className="mt-4 flex flex-col">
+                    <form className="mt-4 flex flex-col" action={formAction}>
                         <div className="space-y-3">
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-white">Email</label>
@@ -37,6 +40,12 @@ export default function LoginForm() {
 
                         <div className="mt-10">
                             <Button label="login"/>
+                        </div>
+
+                        <div>
+                            {errorMessage && (
+                                <p className="text-sm text-red-500">{errorMessage}</p>
+                            )}
                         </div>
 
                         <p className="text-white mt-2">Not Registered? <Link href="/signup" className="text-blue-400">sign up</Link></p>

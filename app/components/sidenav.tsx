@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react";
-import { PowerIcon, } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { HomeIcon, CheckIcon, ListTodoIcon, ClipboardList } from "lucide-react";
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import Profile from "../assets/profile.png"
+import { PowerIcon } from "lucide-react"
+import { LogOut } from "../lib/actions";
 
 
 const links = [
@@ -105,12 +106,16 @@ export default function SideNav() {
                         })}
                     </div>
 
-                    <form className="m-3">
+                    <form 
+                        action={LogOut}
+                        className="m-3"
+                    >
                         <button className="flex h-[48px] w-full grow items-center gap-2 rounded-md p-3 text-white text-sm font-medium hover:bg-slate-700">
                             <PowerIcon className="w-6"/>
                             <div>Sign Out</div>
                         </button>
                     </form>
+                    
                 </div>
             </div>
         </>
