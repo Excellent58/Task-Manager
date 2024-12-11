@@ -3,10 +3,12 @@ import TaskCard from "../../components/task-card";
 import { getTasks } from "../../lib/data";
 import { formatDate } from "@/utils/date";
 import AddTaskModal from "../../components/AddTasksModal";
+import { getCurrentUser } from "@/app/lib/actions";
 
 export default async function Home() {
   const tasks = await getTasks();
-  console.log(tasks)
+  const user = await getCurrentUser()
+  console.log(`User: ${user}`)
 
   return (
     <div className="font-[family-name:var(--font-geist-sans)]">

@@ -1,7 +1,6 @@
 'use server'
 
 import clientPromise from "./db";
-import { ObjectId } from "mongodb";
 import bcrypt from 'bcrypt'
 import { z } from "zod";
 import { redirect } from "next/navigation";
@@ -31,14 +30,11 @@ const TaskSchema = z.object({
     createdAt: z.string(),
 })
 
-const LoginSchema = z.object({
-    email: z.string().email("Invalid email address"),
-    password: z.string({
-        invalid_type_error: "please enter your password"
-    })
-})
-
 const CreateTask = TaskSchema.omit({id: true, userId: true, createdAt: true})
+
+export async function getCurrentUser() {
+
+}
 
 export type userState = {
     errors?: {
@@ -50,22 +46,40 @@ export type userState = {
     message?: string | null
 };
 
-interface Task {
-    title: string;
-    description: string;
-    isCompleted: Date
-    isImportant: boolean
-    createdAt: Date
-    userId: ObjectId
+export type taskState = {
+    errors?: {
+        title?: string[];
+        description?: string[];
+        // isCompleted?: string[];
+        // isImportant?: string[];
+    }
+
+    message?: string | null
 }
 
-
-
-export async function createTask() {
+export async function createTask(id: string | undefined, prevState: taskState, formData: FormData) {
     const client = await clientPromise
     const db = client.db()
 
-    // const validatedFields = 
+    const validatedFields = CreateTask.safeParse({
+        title: formData.get('title'),
+        description: formData.get('description'),
+        isCompleted: formData.has('isCompleted') ? true : false,
+        isImportant: formData.has('isImportant') ? true : false,
+    })
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: "Failed to create task. ",
+        }
+    }
+
+    const { title, description, isCompleted, isImportant } = validatedFields.data
+    const createdAt = new Date()
+    const userId = 
+
+    console.log(validatedFields.data)
 }
 
 export async function updateTask() {}
