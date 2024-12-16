@@ -9,7 +9,7 @@ type Task = {
     isCompleted: boolean;
 }
 
-function TaskCard({id, title, description, date, isCompleted}:Task) {
+function TaskCard({id, title, description, date, isCompleted}: Task) {
     return (
         <div className="flex flex-col justify-between h-full bg-slate-800 text-white w-full p-3 max-w-[300px] rounded-xl ">
             <div>

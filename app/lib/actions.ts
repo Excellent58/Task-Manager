@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import { signIn } from '@/auth'
 import { AuthError } from "next-auth";
 import { signOut } from '@/auth';
+import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 
 const UserSchema = z.object({
     name: z.string({
@@ -31,10 +33,7 @@ const TaskSchema = z.object({
 })
 
 const CreateTask = TaskSchema.omit({id: true, userId: true, createdAt: true})
-
-export async function getCurrentUser() {
-
-}
+const UpdateTask = TaskSchema.omit({id: true, userId: true, createdAt: true})
 
 export type userState = {
     errors?: {
@@ -50,8 +49,8 @@ export type taskState = {
     errors?: {
         title?: string[];
         description?: string[];
-        // isCompleted?: string[];
         // isImportant?: string[];
+        // isCompleted?: string[];
     }
 
     message?: string | null
@@ -77,14 +76,74 @@ export async function createTask(id: string | undefined, prevState: taskState, f
 
     const { title, description, isCompleted, isImportant } = validatedFields.data
     const createdAt = new Date()
-    const userId = 
+    const userId = new ObjectId(id)
 
-    console.log(validatedFields.data)
+    const taskCollection = db.collection('Tasks')
+
+    try {
+        await taskCollection.insertOne({
+            title: title, 
+            description: description, 
+            isCompleted: isCompleted, 
+            isImportant: isImportant, 
+            createdAt: createdAt,
+            userId: userId,
+        })
+    } catch (error) {
+        return {
+            message: 'database error: failed to create task'
+        }
+    }
+
+    redirect('/')
 }
 
-export async function updateTask() {}
+export async function updateTask(id: string, prevState: taskState, formData: FormData) {
+    const client = await clientPromise
+    const db = client.db()
 
-export async function deleteTask() {}
+    const validatedFields = CreateTask.safeParse({
+        title: formData.get('title'),
+        description: formData.get('description'),
+        isCompleted: formData.has('isCompleted') ? true : false,
+        isImportant: formData.has('isImportant') ? true : false,
+    })
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: "Failed to update task.",
+        }
+    }
+
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+export async function deleteTask(id: string) {
+    const client = await clientPromise
+    const db = client.db()
+    console.log(`delete task id: ${id}`)
+    const taskId = new ObjectId(id)
+    const taskCollection = db.collection('Tasks')
+
+    try{
+        const result = await taskCollection.deleteOne({_id:taskId})
+
+        if (result.deletedCount === 0) {
+            return {message: "Task not found"}
+        }
+
+        revalidatePath('/')
+        return {message: 'Task deleted successfully.'}
+    } catch (error) {
+        console.error('Error deleting task: ', error)
+        return {message: 'database error: failed to delete task'}
+    }
+}
 
 export async function createAccount(prevState: userState, formData: FormData) {
     const client = await clientPromise

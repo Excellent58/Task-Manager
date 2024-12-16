@@ -5,6 +5,7 @@ import { DeleteTask } from "./buttons";
 import { Modal } from "./modal";
 import useDisableBodyScroll from "../hooks";
 import Button from "./Button";
+import { deleteTask } from "../lib/actions";
 
 type DeleteModalProps = {
     id: string;
@@ -13,11 +14,11 @@ type DeleteModalProps = {
 function DeleteTaskModal({ id }: DeleteModalProps) {
     const [modalOpen, setModalOpen] = useState(false)
     useDisableBodyScroll(modalOpen)
+    const deleteTaskWithId = deleteTask.bind(null, id)
 
     return (
         <div>
             <DeleteTask
-                id={id}
                 onClick={()=> setModalOpen(true)}
             />
 
@@ -29,15 +30,23 @@ function DeleteTaskModal({ id }: DeleteModalProps) {
                 }
                 actions={
                     <div className="flex items-center justify-center space-x-5">
-                        <Button
-                            label="delete"
-                            backgroundColor="bg-red-400"
-                        />
+                        <form
+                            className="w-full"
+                            action={deleteTaskWithId}
+                            onSubmit={() => setModalOpen(false)}
+                        >
+                            <Button
+                                label="delete"
+                                backgroundColor="bg-red-400"
+                            />
+                        </form>
 
-                        <Button
-                            label="cancel"
-                            onClick={()=> setModalOpen(false)}
-                        />
+                        <div className="w-full">
+                            <Button
+                                label="cancel"
+                                onClick={()=> setModalOpen(false)}
+                            />
+                        </div>
                     </div>
                 }
             />

@@ -13,16 +13,12 @@ export default function AddTaskModal() {
     const [modalOpen, setModalOpen] = useState(false);
     useDisableBodyScroll(modalOpen)
 
-    const { data: session } = useSession()
+    const {data: session} = useSession()
 
     const userId = session?.user?.id
 
-    if (!userId) {
-        return null
-    }
-
+    const initialState: taskState = { message: null, errors: {} };
     const createTaskWithId = createTask.bind(null, userId)
-    const initialState: taskState = {message: null, errors: {}}
     const [state, formAction] = useActionState(createTaskWithId, initialState)
 
     return (

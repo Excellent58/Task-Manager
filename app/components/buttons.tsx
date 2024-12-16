@@ -8,7 +8,6 @@ type CreateButtonProps = {
 };
 
 type DeleteButtonProps = {
-  id: string;
   onClick: () => void;
 }
 
@@ -42,16 +41,16 @@ export function UpdateTask({ id, onClick }: UpdateButtonProps) {
   );
 }
 
-export function DeleteTask({ id, onClick }: DeleteButtonProps) {
+export function DeleteTask({ onClick }: DeleteButtonProps) {
 
   return (
-    <button 
-      type="button" 
-      className="text-slate-500 flex items-center"
-      onClick={onClick}
-    >
-      <span className="sr-only">Delete</span>
-      <Trash2Icon className="w-5" />
-    </button>
+      <button 
+        type="button" 
+        className="text-slate-500 flex items-center"
+        onClick={onClick}
+      >
+        <span className="sr-only">Delete</span>
+        <Trash2Icon className="w-5" />
+      </button>
   );
 }

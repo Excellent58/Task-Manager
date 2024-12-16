@@ -1,3 +1,4 @@
+import { console } from "inspector";
 import clientPromise from "./db";
 
 export async function getTasks() {
