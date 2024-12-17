@@ -1,5 +1,6 @@
 import { console } from "inspector";
 import clientPromise from "./db";
+import { ObjectId } from "mongodb";
 
 export async function getTasks() {
     try {
@@ -15,6 +16,39 @@ export async function getTasks() {
     } catch (error) {
         console.error('database Error: ', error);
         throw new Error('Failed to fetch tasks')
+    }
+}
+
+export type Task = {
+    _id: string;
+    title: string;
+    description: string;
+    createdAt: string;
+    isImportant: boolean;
+    isCompleted: boolean;
+    userId: string
+}
+
+export async function fetchTaskByID(id: string) {
+    try {
+        const client = await clientPromise;
+        const db = client.db();
+
+        const task = await db.collection('Tasks')
+            .findOne({_id: new ObjectId(id)})
+
+        
+        console.log(`fetched task: ${task}`)
+        if (!task) {
+            return {
+                message: "task not found"
+            }
+        }
+
+        return task
+    } catch (error) {
+        console.error("Error fetching task:", error);
+        return {message: "cannot fetch task"}
     }
 }
 

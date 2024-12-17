@@ -98,7 +98,7 @@ export async function createTask(id: string | undefined, prevState: taskState, f
     redirect('/')
 }
 
-export async function updateTask(id: string, prevState: taskState, formData: FormData) {
+export async function updateTaskAction(id: string, prevState: taskState, formData: FormData) {
     const client = await clientPromise
     const db = client.db()
 
@@ -116,17 +116,32 @@ export async function updateTask(id: string, prevState: taskState, formData: For
         }
     }
 
+    const {title, description, isCompleted, isImportant} = validatedFields.data
+    console.log(validatedFields.data)
+
     try {
+        const taskCollection = db.collection('Tasks')
+        const filter = {_id: new ObjectId(id)}
 
+        const update = {
+            $set: { title:title, description:description, isCompleted:isCompleted, isImportant:isImportant},
+        }
+        const result = await taskCollection.updateOne(filter, update)
+        console.log(result.modifiedCount)
+        return {
+            message: 'task updated successfully'
+        }
     } catch (error) {
-
+        return {
+            message: 'database error: failed to create task'
+        }
     }
 }
 
 export async function deleteTask(id: string) {
     const client = await clientPromise
     const db = client.db()
-    console.log(`delete task id: ${id}`)
+    console.log(`deleting task with id: ${id}`)
     const taskId = new ObjectId(id)
     const taskCollection = db.collection('Tasks')
 

@@ -1,7 +1,10 @@
 import DeleteTaskModal from "./DeleteTaskModal";
 import EditTaskModal from "./EditTaskModal";
+import { fetchTaskByID } from "../lib/data";
+import { ObjectId } from "mongodb";
+import { Task } from "../lib/data";
 
-type Task = {
+type TaskProps = {
     id: string;
     title: string;
     description: string;
@@ -9,7 +12,9 @@ type Task = {
     isCompleted: boolean;
 }
 
-function TaskCard({id, title, description, date, isCompleted}: Task) {
+async function TaskCard({id, title, description, date, isCompleted}: TaskProps) {
+    const task = await fetchTaskByID(id)
+    
     return (
         <div className="flex flex-col justify-between h-full bg-slate-800 text-white w-full p-3 max-w-[300px] rounded-xl ">
             <div>
@@ -25,7 +30,7 @@ function TaskCard({id, title, description, date, isCompleted}: Task) {
                     }
                     
                     <div className="flex items-center space-x-4">
-                        <EditTaskModal id={id}/>
+                        <EditTaskModal id={id} task={task}/>
                         <DeleteTaskModal id={id}/>
                     </div>
                 </div>
