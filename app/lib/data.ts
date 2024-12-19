@@ -36,19 +36,25 @@ export async function fetchTaskByID(id: string) {
 
         const task = await db.collection('Tasks')
             .findOne({_id: new ObjectId(id)})
-
         
-        console.log(`fetched task: ${task}`)
         if (!task) {
-            return {
-                message: "task not found"
-            }
+            throw new Error("task not found")
         }
 
-        return task
+        const serializedTask: Task = {
+            _id: task._id.toString(),
+            title: task.title,
+            description: task.description,
+            createdAt: task.createdAt.toISOString(),
+            isImportant: task.isImportant,
+            isCompleted: task.isCompleted,
+            userId: task.userId.toString()
+        }
+
+        return serializedTask
     } catch (error) {
         console.error("Error fetching task:", error);
-        return {message: "cannot fetch task"}
+        throw new Error("Cannot fetch task");
     }
 }
 

@@ -8,7 +8,6 @@ import Button from "./Button";
 import { updateTaskAction } from "../lib/actions";
 import { useActionState } from "react";
 import { taskState } from "../lib/actions";
-import { ObjectId } from "mongodb";
 
 type EditModalProps = {
     id: string;
@@ -63,28 +62,43 @@ function EditTaskModal({id, task}:EditModalProps ) {
                                 placeholder="title"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                             />
+                            {state.errors?.title &&
+                                state.errors.title.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>
+                                        {error}
+                                    </p>
+                                ))
+                            }
                         </div>
 
                         <div>
                             <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">Description</label>
                             <textarea 
                                 id="description"
+                                name="description"
                                 placeholder="Write task description here"
                                 defaultValue={task.description} 
                                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                             >
                             </textarea>
+                            {state.errors?.description &&
+                                state.errors.description.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>
+                                        {error}
+                                    </p>
+                                ))
+                            }
                         </div>
 
                         <div className="">
                             <div className="flex items-center h-5 pt-3">
-                                <input id="isImportant" type="checkbox" defaultChecked={task.isImportant} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-30"/>
+                                <input id="isImportant" name="isImportant" type="checkbox" defaultChecked={task.isImportant} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-30"/>
                                 <label htmlFor="isImportant" className="ms-2 text-sm font-medium text-gray-900">Important</label>
                             </div>
 
                             <div className="flex items-center h-5 pt-3">
-                                <input id="isComplete" type="checkbox" defaultChecked={task.isCompleted} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"/>
-                                <label htmlFor="isComplete" className="ms-2 text-sm font-medium text-gray-900">Completed</label>
+                                <input id="isCompleted" name="isCompleted" type="checkbox" defaultChecked={task.isCompleted} className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"/>
+                                <label htmlFor="isCompleted" className="ms-2 text-sm font-medium text-gray-900">Completed</label>
                             </div>
                         </div>
 

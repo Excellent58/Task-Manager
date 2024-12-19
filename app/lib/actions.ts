@@ -49,8 +49,6 @@ export type taskState = {
     errors?: {
         title?: string[];
         description?: string[];
-        // isImportant?: string[];
-        // isCompleted?: string[];
     }
 
     message?: string | null
@@ -117,14 +115,13 @@ export async function updateTaskAction(id: string, prevState: taskState, formDat
     }
 
     const {title, description, isCompleted, isImportant} = validatedFields.data
-    console.log(validatedFields.data)
 
     try {
         const taskCollection = db.collection('Tasks')
         const filter = {_id: new ObjectId(id)}
 
         const update = {
-            $set: { title:title, description:description, isCompleted:isCompleted, isImportant:isImportant},
+            $set: { title, description, isCompleted, isImportant},
         }
         const result = await taskCollection.updateOne(filter, update)
         console.log(result.modifiedCount)
