@@ -69,8 +69,8 @@ export default function AddTaskModal() {
                             </div>
 
                             <div className="flex items-center h-5 pt-3">
-                                <input id="isComplete" name="isComplete" type="checkbox" value="isComplete" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"/>
-                                <label htmlFor="isComplete" className="ms-2 text-sm font-medium text-gray-900">Completed</label>
+                                <input id="isCompleted" name="isCompleted" type="checkbox" value="isCompleted" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300"/>
+                                <label htmlFor="isCompleted" className="ms-2 text-sm font-medium text-gray-900">Completed</label>
                             </div>
                         </div>
 

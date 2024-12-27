@@ -47,6 +47,7 @@ function EditTaskModal({id, task}:EditModalProps ) {
                     <form 
                         className=""
                         action={formAction}
+                        onSubmit={()=> setModalOpen(false)}
                     >
                         <div>
                             <label 

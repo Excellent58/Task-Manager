@@ -54,6 +54,10 @@ export type taskState = {
     message?: string | null
 }
 
+export async function uploadProfileImage() {
+    
+}
+
 export async function createTask(id: string | undefined, prevState: taskState, formData: FormData) {
     const client = await clientPromise
     const db = client.db()
@@ -124,7 +128,8 @@ export async function updateTaskAction(id: string, prevState: taskState, formDat
             $set: { title, description, isCompleted, isImportant},
         }
         const result = await taskCollection.updateOne(filter, update)
-        console.log(result.modifiedCount)
+        
+        revalidatePath("/")
         return {
             message: 'task updated successfully'
         }

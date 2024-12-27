@@ -5,6 +5,7 @@ import { z } from 'zod';
 import type { User } from './app/lib/definitions';
 import clientPromise from './app/lib/db';
 import bcrypt from 'bcrypt';
+import { getSession } from 'next-auth/react';
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -19,6 +20,11 @@ async function getUser(email: string): Promise<User | undefined> {
     console.error('Failed to fetch user: ', error);
     return undefined
   }
+}
+
+export async function getCurrentUser() {
+  const session = await getSession();
+  return session?.user;
 }
  
 export const { auth, signIn, signOut } = NextAuth({
@@ -42,5 +48,30 @@ export const { auth, signIn, signOut } = NextAuth({
     },
 
   })],
+
+  callbacks: {
+    async session({session, token}) {
+      if (token?.sub) {
+        session.user.id = token.sub
+        session.user.name = token.name
+      }
+
+      return session
+    },
+
+    async jwt({token, user}) {
+      if (user) {
+        token.sub = user.id
+        token.name = user.name;
+      }
+
+      return token
+    },
+
+  },
+
+  session: {
+    strategy: 'jwt',
+  },
 
 });
